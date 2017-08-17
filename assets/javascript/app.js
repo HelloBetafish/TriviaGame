@@ -26,24 +26,17 @@ start();
 
 // =================================
 // Questions
-
-var question1 = {
-	main: "This is the first Question.",
+var questionArray = [
+  {question: "This is the first Question.",
 	choices: ["Choice a", "Choice b", "Choice c", "Choice d"],
-	correctChoice: "Choice c"
-}
-
-var question2 = {
-	main: "This is the second Question.",
+	correctChoice: "Choice c"},
+  {question: "This is the second Question.",
 	choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-	correctChoice: "Choice 1"
-}
-
-var question3 = {
-	main: "This is the third Question.",
-	choices: ["Choice i", "Choice ii", "Choice iii", "Choice iv"],
-	correctChoice: "Choice iv"
-}
+	correctChoice: "Choice 1"},
+  {question: "This is the third Question.",
+  choices: ["Choice i", "Choice ii", "Choice iii", "Choice iv"],
+  correctChoice: "Choice iv"}
+]
 // ==================================
 // Counters
 var numCorrect = 0;
@@ -53,7 +46,7 @@ var numIncorrect = 0;
 // Create radio buttons populated with choices
 
 var displayQnA = function(currentQ){
-  $("#question").text(currentQ.main);
+  $("#question").text(currentQ.question);
   for(var i = 0; i < currentQ.choices.length; i++){
  
  	var option =$("<label>");
@@ -67,7 +60,7 @@ var displayQnA = function(currentQ){
 
 }
 
-displayQnA(question1);
+displayQnA(questionArray[0]);
 
 // ========================================
 // Check if correct answer checked
@@ -83,3 +76,15 @@ var isCorrectChoice = function (currentQ){
   	return false;
   }
 }
+
+// ============================
+// Make submit button check response
+$("#verify").on("click", function() {
+  isCorrectChoice(currentQ);
+  if(isCorrectChoice){
+  	$("#question").text("Correct!");
+  }
+  else{
+  	$("#question").text("Incorrect!");
+  }
+});
