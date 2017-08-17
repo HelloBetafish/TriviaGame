@@ -17,6 +17,7 @@ var countdown = function(){
 
 var start = function(){
   if (!timeOut){
+  	time = 30;
     intervalId = setInterval(countdown,1000)
   }
 }
@@ -51,31 +52,22 @@ var numIncorrect = 0;
 // ==============================
 // Create radio buttons populated with choices
 
-var createBtns = function(currentQ){
+var displayQnA = function(currentQ){
+  $("#question").text(currentQ.main);
   for(var i = 0; i < currentQ.choices.length; i++){
  
  	var option =$("<label>");
- 	option.html("<input type='radio' name='radioSelect'>" + currentQ.choices[i]);
- 	$("#choices").append(option)
-
-  	// var option = $("<input>").attr({type:"radio", name:"radioSelect"});
-  	// option.val(currentQ.choices[i]);
-  	// option.text(currentQ.choices[i]);
-  	// $("#choices").append(option);
-
-   //  $("#choices").append("<input type='radio'>" + currentQ.choices[i] + "<br>");
-  	// $("input[type=radio]").val(currentQ.choices[i]);
-  	// $("input[type=radio]").attr("name","radioSelect");
-
-  	// var option = $("<input>").attr({type:"radio", name:"radioSelect"});
-  	// option.val(currentQ.choices[i]);
-  	// // option.text(currentQ.choices[i]);
-  	// $("#choices").append(option);
+ 	option.html("<input type='radio' name='radioSelect' value ='" + 
+ 	currentQ.choices[i] + "'>" + currentQ.choices[i]);
+ 	$("#choices").append(option);
   }
   $("label").after("</br>");
+  var btn = $("<button id='verify'>").addClass("btn btn-primary").text("Submit");
+  $("#choices").append(btn);
+
 }
 
-createBtns(question1);
+displayQnA(question1);
 
 // ========================================
 // Check if correct answer checked
