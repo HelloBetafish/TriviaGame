@@ -53,15 +53,26 @@ var numIncorrect = 0;
 
 var createBtns = function(currentQ){
   for(var i = 0; i < currentQ.choices.length; i++){
-  	var option = $("<input>").attr({type:"radio", name:"radioSelect"});
-  	option.val(currentQ.choices[i]);
-  	option.text(currentQ.choices[i]);
-  	$("#choices").append(option);
+ 
+ 	var option =$("<label>");
+ 	option.html("<input type='radio' name='radioSelect'>" + currentQ.choices[i]);
+ 	$("#choices").append(option)
+
+  	// var option = $("<input>").attr({type:"radio", name:"radioSelect"});
+  	// option.val(currentQ.choices[i]);
+  	// option.text(currentQ.choices[i]);
+  	// $("#choices").append(option);
 
    //  $("#choices").append("<input type='radio'>" + currentQ.choices[i] + "<br>");
   	// $("input[type=radio]").val(currentQ.choices[i]);
   	// $("input[type=radio]").attr("name","radioSelect");
+
+  	// var option = $("<input>").attr({type:"radio", name:"radioSelect"});
+  	// option.val(currentQ.choices[i]);
+  	// // option.text(currentQ.choices[i]);
+  	// $("#choices").append(option);
   }
+  $("label").after("</br>");
 }
 
 createBtns(question1);
