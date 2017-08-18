@@ -12,17 +12,32 @@ var countdown = function(){
   if(time===0){
   	timeOut = true;
   	clearInterval(intervalId);
+  	reset();
   }
 }
 
+var reset = function(){
+  $("#choices").empty();
+  count++;
+  if(count<questionArray.length){
+	displayQnA(questionArray[count]);
+	timeOut = false;
+	time = 30;
+	$("#timer").text(time);
+	timer();
+	}
+  else{
+  	$("#choices").text("The End!");
+  }
+}
+
+
 var timer = function(){
   if (!timeOut){
-  	time = 30;
     intervalId = setInterval(countdown,1000)
   }
 }
 
-timer();
 
 // =================================
 // Questions
@@ -45,6 +60,7 @@ var questionArray = [
 var numCorrect = 0;
 var numIncorrect = 0;
 var unanswered = 0;
+var count = 0;
 
 // ==============================
 // Create radio buttons populated with choices
@@ -64,7 +80,7 @@ var displayQnA = function(currentQ){
 
 }
 
-// displayQnA(questionArray[0]);
+ 
 
 // ========================================
 // Check if correct answer checked
@@ -88,7 +104,7 @@ var isCorrectChoice = function (currentQ){
 // ============================
 // Make submit button check response
 $("#verify").on("click", function() {
-  isCorrectChoice(questionArray[0]);
+  isCorrectChoice(questionArray[y]);
   if(isCorrectChoice === true){
   	console.log("Correct!");
   	// $("#question").text("Correct!");
@@ -102,12 +118,18 @@ $("#verify").on("click", function() {
 // ================
 // Test game
 
-for(var i = 0; i < questionArray.length; i++){
-	var currentQ = questionArray[i];
-	displayQnA(currentQ);
-	console.log(currentQ);
-}
+// for(var i = 0; i < questionArray.length; i++){
+// 	var currentQ = questionArray[i];
+// 	displayQnA(currentQ);
+// 	console.log(currentQ);
+// }
 
-var y = 0;
-y++
-displayQnA(questionArray[y]);
+// var y = 0;
+// y++
+// displayQnA(questionArray[y]);
+
+// ======================
+// Game Flow
+
+timer();
+displayQnA(questionArray[count]);
