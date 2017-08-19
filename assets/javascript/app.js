@@ -12,7 +12,7 @@ var countdown = function(){
   if(time===0){
   	timeOut = true;
   	clearInterval(intervalId);
-  	reset();
+  	showAnswer();
   }
 }
 
@@ -38,6 +38,12 @@ var timer = function(){
   }
 }
 
+var showAnswer = function(){
+  $("#choices").empty();
+  $("#question").text("The correct answer is: " + answer);
+  $("#choices").append("<img src='" + imgSrc + "'>");
+  setTimeout(reset,5000);
+}
 
 // =================================
 // Questions
@@ -45,15 +51,15 @@ var questionArray = [
   {question: "This is the first Question.",
 	choices: ["Choice a", "Choice b", "Choice c", "Choice d"],
 	correctChoice: "Choice c",
-	img: "test.jpeg"},
+	image: "https://static.fjcdn.com/gifs/Cat_439f66_783457.gif"},
   {question: "This is the second Question.",
 	choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
 	correctChoice: "Choice 1",
-	img: "test2.jpeg"},
+	image: "http://www.dream-wallpaper.com/free-wallpaper/nature-wallpaper/waterfall-and-stream-2-wallpaper/1280x1024/free-wallpaper-11.jpg"},
   {question: "This is the third Question.",
   choices: ["Choice i", "Choice ii", "Choice iii", "Choice iv"],
   correctChoice: "Choice iv",
-  img: "test3.jpeg"}
+  image: "http://images.all-free-download.com/images/graphiclarge/beautiful_natural_scenic_03_hd_picture_166230.jpg"}
 ]
 // ==================================
 // Counters
@@ -61,6 +67,8 @@ var numCorrect = 0;
 var numIncorrect = 0;
 var unanswered = 0;
 var count = 0;
+var answer = "";
+var imgSrc = "";
 
 // ==============================
 // Create radio buttons populated with choices
@@ -77,7 +85,8 @@ var displayQnA = function(currentQ){
   $("label").after("</br>");
   var btn = $("<button id='verify'>").addClass("btn btn-primary").text("Submit");
   $("#choices").append(btn);
-
+  answer = currentQ.correctChoice;
+  imgSrc = currentQ.image;
 }
 
  
@@ -87,7 +96,7 @@ var displayQnA = function(currentQ){
 
 var isCorrectChoice = function (currentQ){
   var userSelected = $('input[name=radioSelect]:checked','#choices').val();
-  if(userSelected === currentQ.correctChoice){
+  if(userSelected === answer){
     numCorrect++;
     $("#question").text("Correct!");
     console.log(numCorrect);
@@ -116,20 +125,6 @@ $("#verify").on("click", function() {
 });
 
 // ================
-// Test game
-
-// for(var i = 0; i < questionArray.length; i++){
-// 	var currentQ = questionArray[i];
-// 	displayQnA(currentQ);
-// 	console.log(currentQ);
-// }
-
-// var y = 0;
-// y++
-// displayQnA(questionArray[y]);
-
-// ======================
-// Game Flow
 
 timer();
 displayQnA(questionArray[count]);
