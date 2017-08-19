@@ -1,4 +1,3 @@
-
 // Timer Countdown variables and functions
 var time = 30;
 var intervalId;
@@ -28,7 +27,12 @@ var reset = function(){
 	timer();
 	}
   else{
-  	$("#choices").text("The End!");
+    $("#question").text("Your results:");
+  	$("#choices").append("<p>Correct Answers: " + numCorrect + "</p>");
+    $("#choices").append("<p>Incorrect Answers: " + numIncorrect + "</p>");
+    $("#choices").append("<p>Unanswered Questions: " + unanswered + "</p>");
+    var btn = $("<button id='start' type='button'>").addClass("btn btn-primary").text("Try again?");
+    $("#choices").append(btn);
   }
 }
 
@@ -56,23 +60,19 @@ var showAnswer = function(){
 
 var isCorrectChoice = function (){
   var userSelected = $('input[name=radioSelect]:checked','#choices').val();
-  if(userSelected === answer){
+  if(!$("input[name=radioSelect]:checked").val()){
+  unanswered++;
+  return false;
+  }
+  else if(userSelected === answer){
     numCorrect++;
-    console.log(numCorrect);
     return true;
   }
   else{
     numIncorrect++;
-    console.log(numIncorrect);
     return false;
   }
 }
-
-// ============================
-// Make submit button check response
-
-
-
 
 // =================================
 // Questions
@@ -118,13 +118,32 @@ var displayQnA = function(currentQ){
   imgSrc = currentQ.image;
 }
 
+// ============================
 // Submit button event
 $(document).on("click", "#verify", function(){
   timeOut = true;
   clearInterval(intervalId);
   showAnswer();
 });
-// // ================
+//  ================
+// Start game
+$(document).on("click", "#start", function(){
+  start();
+});
 
+var start = function(){
+numCorrect = 0;
+numIncorrect = 0;
+unanswered = 0;
+count = 0;
+answer = "";
+imgSrc = "";
+timeOut = false;
+time = 30;
+$("#choices").empty();
+$("#timer").text(time);
 timer();
 displayQnA(questionArray[count]);
+}
+
+start();
