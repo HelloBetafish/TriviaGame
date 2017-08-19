@@ -1,3 +1,4 @@
+
 // Timer Countdown variables and functions
 var time = 30;
 var intervalId;
@@ -39,11 +40,39 @@ var timer = function(){
 }
 
 var showAnswer = function(){
+  var checkA = isCorrectChoice();
   $("#choices").empty();
-  $("#question").text("The correct answer is: " + answer);
+  if(checkA){
+    $("#question").text("You are correct! The answer is: " + answer);
+  }
+  else{
+    $("#question").text("Sorry! The correct answer is: " + answer);
+  }
   $("#choices").append("<img src='" + imgSrc + "'>");
   setTimeout(reset,5000);
 }
+// ========================================
+// Check if correct answer checked
+
+var isCorrectChoice = function (){
+  var userSelected = $('input[name=radioSelect]:checked','#choices').val();
+  if(userSelected === answer){
+    numCorrect++;
+    console.log(numCorrect);
+    return true;
+  }
+  else{
+    numIncorrect++;
+    console.log(numIncorrect);
+    return false;
+  }
+}
+
+// ============================
+// Make submit button check response
+
+
+
 
 // =================================
 // Questions
@@ -83,48 +112,19 @@ var displayQnA = function(currentQ){
  	$("#choices").append(option);
   }
   $("label").after("</br>");
-  var btn = $("<button id='verify'>").addClass("btn btn-primary").text("Submit");
+  var btn = $("<button id='verify' type='button'>").addClass("btn btn-primary").text("Submit");
   $("#choices").append(btn);
   answer = currentQ.correctChoice;
   imgSrc = currentQ.image;
 }
 
- 
-
-// ========================================
-// Check if correct answer checked
-
-var isCorrectChoice = function (currentQ){
-  var userSelected = $('input[name=radioSelect]:checked','#choices').val();
-  if(userSelected === answer){
-    numCorrect++;
-    $("#question").text("Correct!");
-    console.log(numCorrect);
-    return true;
-	}
-  else{
-  	numIncorrect++;
-  	$("#question").text("Incorrect!");
-  	console.log(numIncorrect);
-  	return false;
-  }
-}
-
-// ============================
-// Make submit button check response
-$("#verify").on("click", function() {
-  isCorrectChoice(questionArray[y]);
-  if(isCorrectChoice === true){
-  	console.log("Correct!");
-  	// $("#question").text("Correct!");
-  }
-  else{
-  	console.log("Incorrect!");
-  	// $("#question").text("Incorrect!");
-  }
+// Submit button event
+$(document).on("click", "#verify", function(){
+  timeOut = true;
+  clearInterval(intervalId);
+  showAnswer();
 });
-
-// ================
+// // ================
 
 timer();
 displayQnA(questionArray[count]);
