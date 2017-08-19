@@ -3,11 +3,9 @@ var time = 30;
 var intervalId;
 var timeOut = false;
 
-$("#timer").text(time);
-
 var countdown = function(){
   time--;
-  $("#timer").text(time);
+  $("#timer").text("Time Remaining: " + time);
 
   if(time===0){
   	timeOut = true;
@@ -23,15 +21,16 @@ var reset = function(){
 	displayQnA(questionArray[count]);
 	timeOut = false;
 	time = 30;
-	$("#timer").text(time);
+	$("#timer").text("Time Remaining: " + time);
 	timer();
 	}
   else{
-    $("#question").text("Your results:");
+    $("#timer").text("");
+    $("#question").text("The results are in:");
   	$("#choices").append("<p>Correct Answers: " + numCorrect + "</p>");
     $("#choices").append("<p>Incorrect Answers: " + numIncorrect + "</p>");
     $("#choices").append("<p>Unanswered Questions: " + unanswered + "</p>");
-    var btn = $("<button id='start' type='button'>").addClass("btn btn-primary").text("Try again?");
+    var btn = $("<button type='button'>").addClass("btn btn-lg btn-primary start").text("Try again?");
     $("#choices").append(btn);
   }
 }
@@ -112,7 +111,7 @@ var displayQnA = function(currentQ){
  	$("#choices").append(option);
   }
   $("label").after("</br>");
-  var btn = $("<button id='verify' type='button'>").addClass("btn btn-primary").text("Submit");
+  var btn = $("<button id='verify' type='button'>").addClass("btn btn-lg btn-primary").text("Submit");
   $("#choices").append(btn);
   answer = currentQ.correctChoice;
   imgSrc = currentQ.image;
@@ -127,7 +126,7 @@ $(document).on("click", "#verify", function(){
 });
 //  ================
 // Start game
-$(document).on("click", "#start", function(){
+$(document).on("click", ".start", function(){
   start();
 });
 
@@ -141,9 +140,8 @@ imgSrc = "";
 timeOut = false;
 time = 30;
 $("#choices").empty();
-$("#timer").text(time);
+$("#timer").text("Time Remaining: " + time);
 timer();
 displayQnA(questionArray[count]);
 }
 
-start();
