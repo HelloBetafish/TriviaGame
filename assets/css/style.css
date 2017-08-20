@@ -10,9 +10,10 @@ h2{
   font-size:xx-large;
 }
 
-b{
-  text-decoration: underline;
+form{
+  padding: 5px 5px 15px 5px;
 }
+
 .jumbotron{
   background-color:darkblue;
   color:white;
@@ -35,10 +36,12 @@ input[type="radio"] {
   padding: 5px;
 }
 
+b{
+  text-decoration: underline;
+}
+
 button{
   margin: 10px;
 }
 
-form{
-  padding: 5px 5px 15px 5px;
-}
+
