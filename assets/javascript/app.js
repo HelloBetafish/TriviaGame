@@ -11,7 +11,7 @@ var timer = function(){
 
 var countdown = function(){
   time--;
-  $("#timer").text("Time Remaining: " + time);
+  $("#timer").html("<span class='glyphicon glyphicon-hourglass'></span> Time Remaining: " + time);
 
   if(time===0){
   	timeOut = true;
@@ -31,18 +31,55 @@ var imgSrc = "";
 // =================================
 // Questions for game
 var questionArray = [
-  {question: "This is the first Question.",
-  choices: ["Choice a", "Choice b", "Choice c", "Choice d"],
-  correctChoice: "Choice c",
-  image: "https://static.fjcdn.com/gifs/Cat_439f66_783457.gif"},
-  {question: "This is the second Question.",
-  choices: ["Choice 1", "Choice 2", "Choice 3", "Choice 4"],
-  correctChoice: "Choice 1",
-  image: "http://www.dream-wallpaper.com/free-wallpaper/nature-wallpaper/waterfall-and-stream-2-wallpaper/1280x1024/free-wallpaper-11.jpg"},
-  {question: "This is the third Question.",
-  choices: ["Choice i", "Choice ii", "Choice iii", "Choice iv"],
-  correctChoice: "Choice iv",
-  image: "http://images.all-free-download.com/images/graphiclarge/beautiful_natural_scenic_03_hd_picture_166230.jpg"}
+  {question: "What is the most visited attraction in Paris?",
+  choices: ["Eiffel Tower","The Louvre","Notre Dame","Disneyland Paris"],
+  correctChoice: "Disneyland Paris",
+  image: "assets/images/giphy-disneyland-paris.gif"},
+
+  {question: "French film production is ____ in the world.",
+  choices: ["1st","2nd","3rd","4th"],
+  correctChoice: "2nd",
+  image: "assets/images/giphy-amelie.gif"},
+  
+  {question: "All of the foods below were NOT invented in France except for:",
+  choices: ["French Toast","French Fries","Crêpes","Croissants"],
+  correctChoice: "Crêpes",
+  image: "assets/images/giphy-crepes.gif"},
+  
+  {question: "France is about the same size as this state in the US:",
+  choices: ["Texas","Arizona","Minnesota","Tennessee"],
+  correctChoice: "Texas",
+  image: "assets/images/giphy-texas.gif"},
+
+  {question: "French was the official language of this country historically for over 300 years:",
+  choices: ["USA","Spain","England","Russia"],
+  correctChoice: "England",
+  image: "assets/images/giphy-english-flag.gif"},
+
+  {question: "It is illegal to name a pig this name in France:",
+  choices: ["Macron","Napoleon","Louis","Marie"],
+  correctChoice: "Napoleon",
+  image: "assets/images/giphy-napoleonb.gif"},
+
+  {question: "It is illegal to do which of the following activities on railroads in France?",
+  choices: ["Kiss","Transact business","Shout","Eat"],
+  correctChoice: "Kiss",
+  image: "assets/images/giphy-pixar-kiss.gif"},
+
+  {question: "The French invented all of these things EXCEPT for:",
+  choices: ["Guillotine","Hot Air Balloon","Metric System","Steam Locomotive"],
+  correctChoice: "Steam Locomotive",
+  image: "assets/images/giphy-steam-loco.gif"},
+
+  {question: "The Eiffel Tower is painted every ____ years.",
+  choices: ["5","7","2","10"],
+  correctChoice: "7",
+  image: "assets/images/giphy-tour-eiffel.gif"},
+
+  {question: "There is a ________ street in every town in France.",
+  choices: ["Victor Hugo","St. Paul","Charles de Gaulle","Main"],
+  correctChoice: "Victor Hugo",
+  image: "assets/images/giphy-victor-hugo.gif"}
 ]
 // ==================================
 // Function called to start off the game
@@ -57,7 +94,7 @@ imgSrc = "";
 timeOut = false;
 time = 30;
 $("#choices").empty();
-$("#timer").text("Time Remaining: " + time);
+$("#timer").html("<span class='glyphicon glyphicon-hourglass'></span> Time Remaining: " + time);
 timer();
 displayQnA(questionArray[count]);
 }
@@ -65,7 +102,7 @@ displayQnA(questionArray[count]);
 // Function to create radio buttons populated with choices and Submit button
 
 var displayQnA = function(currentQ){
-  $("#question").text(currentQ.question);
+  $("#question").html("<span class='glyphicon glyphicon-circle-arrow-right'></span> " + currentQ.question);
   for(var i = 0; i < currentQ.choices.length; i++){
  
   var option =$("<label>");
@@ -90,15 +127,15 @@ var nextQ = function(){
 	displayQnA(questionArray[count]);
 	timeOut = false;
 	time = 30;
-	$("#timer").text("Time Remaining: " + time);
+	$("#timer").html("<span class='glyphicon glyphicon-hourglass'></span> Time Remaining: " + time);
 	timer();
 	}
   else{
     $("#timer").text("");
     $("#question").text("The results are in:");
-  	$("#choices").append("<p>Correct Answers: " + numCorrect + "</p>");
-    $("#choices").append("<p>Incorrect Answers: " + numIncorrect + "</p>");
-    $("#choices").append("<p>Unanswered Questions: " + unanswered + "</p>");
+  	$("#choices").append("<p>Correct Answers: <b>" + numCorrect + "</b></p>");
+    $("#choices").append("<p>Incorrect Answers: <b>" + numIncorrect + "</b></p>");
+    $("#choices").append("<p>Unanswered Questions: <b>" + unanswered + "</b></p>");
     var btn = $("<button type='button'>").addClass("btn btn-lg btn-primary reset").text("Try again?");
     $("#choices").append(btn);
   }
@@ -109,13 +146,13 @@ var showAnswer = function(){
   var checkA = isCorrectChoice();
   $("#choices").empty();
   if(checkA){
-    $("#question").text("You are correct! The answer is: " + answer);
+    $("#question").html("You are correct! The answer is: <b>" + answer + "</b>");
   }
   else{
-    $("#question").text("Sorry! The correct answer is: " + answer);
+    $("#question").html("Nope! The correct answer is: <b>" + answer + "</b>");
   }
-  $("#choices").append("<img src='" + imgSrc + "'>");
-  setTimeout(nextQ,5000);
+  $("#choices").append("<img src='" + imgSrc + "' alt='correctAnswer'>");
+  setTimeout(nextQ,4000);
 }
 // ========================================
 // Check if correct answer selected

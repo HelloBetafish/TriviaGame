@@ -1,11 +1,44 @@
-#question-div{
-  background-color:lightblue;
+body{
+  /* Background pattern from Subtle Patterns  
+  https://www.toptal.com/designers/subtlepatterns*/
+  background-image:url("../images/doodles.png");
+  font-family:'Indie Flower', cursive;
 }
 
-#timer-div{
-  background-color:lightgreen;
+h2{
+  font-weight:bold;
+  font-size:xx-large;
 }
 
-#choices{
-  background-color:lightpink;
+b{
+  text-decoration: underline;
+}
+.jumbotron{
+  background-color:darkblue;
+  color:white;
+}
+
+#timer{
+  color: darkorange;
+}
+
+#question{
+  color:darkgreen;
+}
+
+#body-container{
+  background-color:lavender;
+}
+
+input[type="radio"] {
+  margin: 5px 10px;
+  padding: 5px;
+}
+
+button{
+  margin: 10px;
+}
+
+form{
+  padding: 5px 5px 15px 5px;
 }
